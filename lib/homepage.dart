@@ -1,3 +1,5 @@
+import 'package:brick_breaker/ball.dart';
+import 'package:brick_breaker/player.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -18,6 +20,10 @@ class _HomepageState extends State<Homepage> {
   //game settings
   bool hasGameStarted = false;
 
+  //player variables
+  double playerX = 0;
+  double playerWidth = 0.3;
+
   void startGame() {
     hasGameStarted = true;
     Timer.periodic(Duration(microseconds: 10), (timer) {
@@ -33,25 +39,17 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.deepPurple[100],
         body: Stack(
           children: [
-            
             //tap to play
             CoverScreen(
-                hasGameStarted: hasGameStarted,
-                onStart: startGame,
-                ),
-    
-            //ball
-            Container(
-              alignment: Alignment(ballX, ballY),
-              child: Container(
-                height: 15,
-                width: 15,
-                decoration: BoxDecoration(
-                  color: Colors.deepPurple,
-                  shape: BoxShape.circle,
-                ),
-              ),
+              hasGameStarted: hasGameStarted,
+              onStart: startGame,
             ),
+
+            //ball
+            MyBall(ballX: ballX, ballY: ballY),
+
+            //player 
+            MyPlayer(playerX: playerX, playerWidth: playerWidth,)
           ],
         ));
   }
